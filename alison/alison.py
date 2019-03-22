@@ -1,10 +1,11 @@
-
 import numpy as np
+
 
 class Event:
     def __init__(self, time, tag):
         self.time = time
         self.tag = tag
+
 
 class Alison:
     def __init__(self):
