@@ -2,25 +2,33 @@ import time
 import os
 import wave
 import struct
+import thread
+import os
 from respeaker import Microphone
 from pixels import Pixels, pixels
 
-LEN_AUDIO = 1 #in seconds
+#LEN_AUDIO = 1 #in seconds
 RATE = 16000
-NUM = 1
+#NUM = 1
 LEN_DATA = int(LEN_AUDIO * RATE * 2)
 
 def task():
+	int i = 0
     mic= Microphone()
     while 1:
         print("Listening\n")
         #pixels.listen()
         data=mic.listen(1,0.5)
         data=b''.join(data)
-        #treat_data(data)
-        record(data)
+		try:
+			thread.start_new_thread(record,(data,i))
+		except: 
+			print "Error: unable to start thread"
+		#treat_data(data)
+		#record(data)
 
 """ FUNCTION TO PAD DATA TO HAVE A CONSTANT SIZE
+
 def treat_data(data):               
 
     last_index = len(data)-1        
@@ -38,26 +46,37 @@ def treat_data(data):
         data2 = data[0:(LEN_DATA-1)]
         data = data[LEN_DATA:last_index]
         record(data2)
-        treat_data(data) 
+        treat_data(data)
 """
 
-def record(data):
-    global NUM
-    
+def record(data,i):
+   """ To name all the files in the right order for AUDACITY 
+	global NUM
+
     if NUM < 10:
         name = '000'+str(NUM)
     elif NUM<100:
         name = '00'+str(NUM)
     elif NUM<1000:
-        name = '0'+str(NUM)
-        
-    f = wave.open('/home/pi/Documents/Respeaker/TestWav/test'+name+'.wav','wb')
+        name = '0'+str(NUM)   """
+
+	path = '/home/pi/Documents/Respeaker/TestWav/test'+i+'.wav'
+
+    #Save raw data as wave file
+    f = wave.open(path,'wb')
     f.setframerate(RATE)
     f.setsampwidth(2)
     f.setnchannels(1)
     f.writeframes(data)
     f.close
-    NUM = NUM +1
+
+	#Call Vincent's function
+
+	#destroy the created file
+	if os.path.exists(path):
+  		os.remove(path)
+	else:
+  		print("The file does not exist") 
     
 def main():
     print('quit event')
