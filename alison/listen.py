@@ -5,7 +5,7 @@ import struct
 from respeaker import Microphone
 from pixels import Pixels, pixels
 
-LEN_AUDIO = 0.04 #in seconds
+LEN_AUDIO = 1 #in seconds
 RATE = 16000
 NUM = 1
 LEN_DATA = int(LEN_AUDIO * RATE * 2)
