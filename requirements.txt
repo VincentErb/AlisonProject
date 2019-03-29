@@ -1,3 +1,5 @@
 yapf
 pylint
 numpy
+matplotlib
+librosa==0.6
