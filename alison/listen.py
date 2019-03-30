@@ -5,28 +5,30 @@ import struct
 import thread
 import os
 from respeaker import Microphone
-from pixels import Pixels, pixels
+#from pixels import Pixels, pixels
 
-#LEN_AUDIO = 1 #in seconds
+LEN_AUDIO = 1 #in seconds
 RATE = 16000
 #NUM = 1
 LEN_DATA = int(LEN_AUDIO * RATE * 2)
 
 def task():
-	int i = 0
+    i = 0
     mic= Microphone()
     while 1:
         print("Listening\n")
         #pixels.listen()
-        data=mic.listen(1,0.5)
+        data=mic.listen(1,3)
         data=b''.join(data)
-		try:
-			thread.start_new_thread(record,(data,i))
-		except: 
-			print "Error: unable to start thread"
-		#treat_data(data)
-		#record(data)
-
+        if(len(data)>0):
+            try:
+                thread.start_new_thread(record,(data,i))
+            except: 
+                print "Error: unable to start thread"
+            i=i+1
+            #treat_data(data)
+            #record(data)
+        
 """ FUNCTION TO PAD DATA TO HAVE A CONSTANT SIZE
 
 def treat_data(data):               
@@ -50,8 +52,8 @@ def treat_data(data):
 """
 
 def record(data,i):
-   """ To name all the files in the right order for AUDACITY 
-	global NUM
+    """ To name all the files in the right order for AUDACITY 
+    global NUM
 
     if NUM < 10:
         name = '000'+str(NUM)
@@ -60,8 +62,9 @@ def record(data,i):
     elif NUM<1000:
         name = '0'+str(NUM)   """
 
-	path = '/home/pi/Documents/Respeaker/TestWav/test'+i+'.wav'
+    path = '/home/pi/Documents/Respeaker/TestWav/test'+str(i)+'.wav'
 
+    print("Launching Thread "+str(i)) 
     #Save raw data as wave file
     f = wave.open(path,'wb')
     f.setframerate(RATE)
@@ -69,15 +72,15 @@ def record(data,i):
     f.setnchannels(1)
     f.writeframes(data)
     f.close
-
-	#Call Vincent's function
-
-	#destroy the created file
-	if os.path.exists(path):
-  		os.remove(path)
-	else:
-  		print("The file does not exist") 
     
+    #Call Vincent's function
+    sys.sleep(2)
+    #destroy the created file
+    if os.path.exists(path):
+        os.remove(path)
+    else:
+  	print("The file does not exist") 
+        
 def main():
     print('quit event')
     while True:
