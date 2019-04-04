@@ -5,7 +5,7 @@ import struct
 import thread
 import os
 from respeaker import Microphone
-#from pixels import Pixels, pixels
+import learning
 
 LEN_AUDIO = 1 #in seconds
 RATE = 16000
@@ -18,16 +18,14 @@ def task():
     while 1:
         print("Listening\n")
         #pixels.listen()
-        data=mic.listen(1,3)
+        data=mic.listen(1,1)
         data=b''.join(data)
-        if(len(data)>0):
+        if(len(data)>0):    #if it's not just a silence
             try:
                 thread.start_new_thread(record,(data,i))
             except: 
                 print "Error: unable to start thread"
             i=i+1
-            #treat_data(data)
-            #record(data)
         
 """ FUNCTION TO PAD DATA TO HAVE A CONSTANT SIZE
 
@@ -72,14 +70,19 @@ def record(data,i):
     f.setnchannels(1)
     f.writeframes(data)
     f.close
-    
+    """
     #Call Vincent's function
-    sys.sleep(2)
+    sft = get_stft_from_file(path)
+    print(sft.shape)
+    get_one_fft(sft)
+    plot_spectrogram(sft)
+    plot_fft(get_one_fft(sft))
+    
     #destroy the created file
     if os.path.exists(path):
         os.remove(path)
     else:
-  	print("The file does not exist") 
+  	print("The file does not exist") """
         
 def main():
     print('quit event')
