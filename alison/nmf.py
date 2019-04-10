@@ -1,0 +1,102 @@
+from sklearn.decomposition import SparseCoder, NMF
+import librosa.decompose as dcp
+import scipy.io.wavfile as wav
+import numpy as np
+
+
+def get_nmf(stft, n_components):
+    return dcp.decompose(stft, n_components=n_components)
+
+
+def get_activations(stft, dico, n_nonzero_coefs=None):
+    coder = SparseCoder(
+        dictionary=dico.T,
+        transform_n_nonzero_coefs=n_nonzero_coefs,
+        transform_algorithm="omp")
+    return coder.transform(stft.T).T
+
+
+def test_sound_recognition():
+    """
+    Example on how to use get_nmf and get_activations
+    """
+    import matplotlib.pyplot as plt
+    import learning
+
+    rate, signal = wav.read("../samples/door-bell01.wav")
+    stft = learning.get_stft(signal[:, 0] / 1.0)
+
+    # obtain dictionary with NMF
+    dico, base_act = get_nmf(stft, 128)
+
+    # get activations using the previously computed dictionary
+    # Here it's used on the same sound, but we can use it on different
+    # sounds in order to classify them
+    activations = get_activations(stft, dico)
+
+    i = 200
+
+    plt.figure(figsize=(7, 7))
+    plt.subplot(2, 2, 1)
+    plt.title("Spectrum")
+    plt.stem(stft[:, i])
+
+    plt.subplot(2, 2, 2)
+    plt.title("Reconstitution of the spectrum")
+    plt.stem(np.dot(dico, activations[:, i]))
+
+    plt.subplot(2, 2, 3)
+    plt.title("Activations in the base spectrum")
+    plt.stem(base_act[:, i])
+
+    plt.subplot(2, 2, 4)
+    plt.title("Activations found in the other spectrum")
+    plt.stem(activations[:, i])
+
+    plt.show()
+
+
+def demo_nmf():
+    """
+    Show main components from nmf decomposition of an example sound
+    """
+    import matplotlib.pyplot as plt
+    import learning
+
+    # D = get_dictionnary(0).components_
+    # print(D.shape)
+
+    rate, signal = wav.read("../samples/door-bell01.wav")
+    stft = learning.get_stft(signal[:, 0] / 1.0)
+    components, activation = dcp.decompose(stft)
+
+    i = 0
+    # first frame spectrum
+    spectrum = stft[:, i]
+    # first frame component activation
+    line = activation[:, i]
+
+    # Extract spectrum for the 4 strongest activation on the first frame
+    ind = np.argsort(line)[-4:]
+    maincomps = components[:, ind]
+
+    # Plot
+    plt.figure(figsize=(7, 7))
+
+    plt.subplot(6, 1, 1)
+    plt.title("Spectrum")
+    plt.stem(spectrum)
+
+    plt.subplot(6, 1, 2)
+    plt.title("Components")
+    plt.stem(line)
+
+    for n in range(4):
+        plt.subplot(6, 1, n + 3)
+        plt.stem(maincomps[:, n])
+
+    plt.show()
+
+
+if __name__ == "__main__":
+    test_sound_recognition()
