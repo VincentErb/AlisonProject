@@ -12,9 +12,11 @@
   <body>
 
     <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
          <a class="navbar-brand" href="#">
-            <img src="./betterplace.svg" width="30" height="30" alt="">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 93 107" height=30px>
+              <path d='M74,74a42,42 0,1,0-57,0l28,29a42,41 0,0,0 0-57' fill='#364157' fill-rule='evenodd'/>
+            </svg>
          </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -23,7 +25,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="#">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="https://vincenterb.github.io/AlisonProject/no">Documentation</a>
@@ -43,50 +45,75 @@
 
               </div>
             </li>
-            <li class="nav-item">
-               <a class="nav-link" href="./about.html">About</a>
+            <div class="tblack">
+              <a class="nav-link" href="./about.html">About</a>
+            </div>
              </li>
           </ul>
-          
+          <form class="form-inline my-2 my-lg-0">
+              <button class="btn btn-danger" type="submit">Get started</button>
+          </form>  
         </div>
       </nav>
       </header>
 
-      <div class="container mt-5">
-            <div class="row align-items-center">
-              <div class="col-6 mx-auto col-md-6 order-md-2">
-               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 93 107">
-                  <path d='M74,74a42,42 0,1,0-57,0l28,29a42,41 0,0,0 0-57' fill='#00a3dc' fill-rule='evenodd'/>
-                </svg>
-              </div>
-              <div class="col-md-6 order-md-1 text-center text-md-left pr-md-5">
-                <h1 class="mb-3">The Alison Project</h1>
-                <p class="lead">
-                  A state-of-the-art sound recognition solution designed to help people suffering from hearing impairement all over the world. 
-                </p>
-                <p class="lead mb-4">
-                  Alison is an open source project developped with Python for Raspberry Pi. Calibrate the device to listen for some of the sounds of your house using our cross-platform mobile app.
-                   Alison will inform you of the occurence of these sounds in a visual way.
-                </p>
-                <div class="row mx-n2">
-                  <div class="col-md px-2">
-                    <a href="https://vincenterb.github.io/AlisonProject/app" class="btn btn-lg btn-outline-secondary w-100 mb-3">Get the app</a>
-                  </div>
-                  <div class="col-md px-2">
-                    <a href="https://github.com/VincentErb/AlisonProject" class="btn btn-lg btn-outline-secondary w-100 mb-3">Source code</a>
-                  </div>
+      <div class="bg-lightgray padding5"> 
+        <div class="container">
+              <div class="row align-items-center">
+                <div class="col-6 mx-auto col-md-6 order-md-2">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 93 107">
+                    <path d='M74,74a42,42 0,1,0-57,0l28,29a42,41 0,0,0 0-57' fill='#364157' fill-rule='evenodd'/>
+                  </svg>
                 </div>
-                <p class="text-muted mb-0">
-                  Currently v0.0.0
-                </p>
+                <div class="col-md-6 order-md-1 text-center text-md-left pr-md-7">
+                  <h1  class="maintitle">The Alison Project</h1>
+                  <p class="lead mt-3">
+                    A state-of-the-art sound recognition solution designed to help people suffering from hearing impairement all over the world. 
+                  </p>
+                  <p class="lead mb-4 mb-5">
+                    Register the sounds once using our cross-platform companion app. Alison will do the rest.
+                  </p>
+                  <div class="row mx-n2">
+                    <div class="col-md px-2">
+                      <a href="https://vincenterb.github.io/AlisonProject/app" class="btn btn-lg btn-danger w-100 mb-3">Get started</a>
+                    </div>
+                    <div class="col-md px-2">
+                      <a href="https://github.com/VincentErb/AlisonProject" class="btn btn-lg btn-danger w-100 mb-3">Companion app</a>
+                    </div>
+                  </div>
+                  <p class="text-muted mb-3">
+                    Currently v0.0.0
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+        </div>
+      </div>
+
+      <div class="container mx-auto mt-4 mb-4">
+        <div class="row maxi mx-auto">
+
+            <div class="col-xs-6 ml-5 mb-4 mx-auto">
+                <h2 class="sectitle bordervideo">Watch the presentation video</h2>
+            </div>
+
+            <div class="col-xs-6 iframe-container mb-4 mt-4">
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+
+            <div class="col-xs-6 mx-auto mb-2 ml-2 mr-2">
+              <p class="lead ml-2 mr-2 mb-0">Thanks to <b>Yann Treuffet</b> for helping us with the LSF rendition of the text.</p>
+              <p class="lead ml-2 mr-2">Subtitles availabe through Youtube in English and French.</p>
+            </div>
+            
+            
+        </div>
       </div>
 
       <div class="masthead-followup row m-0 border border-white">
-         <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
-           <h3>Calibration App</h3>
+         <div class="col-12 col-md-4 p-3 p-md-5 bg-lightgray border border-white">
+           <h3 class="bottomtitle">Companion App</h3>
            <p>Train the Alison system to recognize the sounds you want using our cross-platform mobile application. 
               The app requires access to the phone's microphone and bluetooth. No internet connection required.</p>
 
@@ -98,11 +125,11 @@
        
        
            <hr class="half-rule">
-           <a class="btn btn-outline-primary" href="/docs/4.3/getting-started/download/">Read installation docs</a>
+           <a class="btn btn-lg btn-danger w-60 forcerobo" href="/docs/4.3/getting-started/download/">Read installation docs</a>
          </div>
        
-         <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
-            <h3>Open-source Software</h3>
+         <div class="col-12 col-md-4 p-3 p-md-5 bg-lightgray border border-white">
+            <h3 class="bottomtitle">Open-source Software</h3>
            <p>Every line of code and documentation on this project is available online</a>.</p>
        
        <h5>Sound recognition solution</h5>  
@@ -112,12 +139,12 @@
        <p>Source code is available on Github.</p>
 
        <hr class="half-rule">
-           <a class="btn btn-outline-primary" href="/docs/4.3/getting-started/download/">Read documentation</a>
+           <a class="btn btn-lg btn-danger w-60 forcerobo" href="/docs/4.3/getting-started/download/">Read documentation</a>
        
          </div>
        
-         <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
-           <h3>Hardware specifications</h3>
+         <div class="col-12 col-md-4 p-3 p-md-5 bg-lightgray border border-white">
+           <h3 class="bottomtitle">Hardware specifications</h3>
            <p>As with our software, every piece of hardware we used and we developped follows our open-source philosophy.</p>
            <h5>Exterior hardware used</h5>
            <p>The core of our solution was designed and implemented on a <a href="btn btn-outline-primary">Raspberry Pi 3B+</a> linked with a Respeaker vX.x.
@@ -125,15 +152,15 @@
            <h5>Packaging blueprints</h5>
            <p>Our team designed an entirely 3D-printed case for our system. Blueprints are available for free.</p>
            <hr class="half-rule">
-           <a href="#" class="btn btn-outline-primary">Read more</a>
+           <a href="#" class="btn btn-lg btn-danger w-60 forcerobo">Read more</a>
          </div>
        </div>
 
       <footer class="bd-footer text-muted">
         <div class="container-fluid p-3 p-md-5">
-            <p>Designed and built by the <a href="#">Alison Team</a> with the help of our <a href="#">Tutors and other contributers</a>.
+            <p class="mb-0">Designed and built by the <a href="#">Alison Team</a> with the help of our <a href="#">Tutors and other contributers</a>.
             </p>
-            <p>Currently v0.0.0. Code licensed MIT</p>
+            <p class="mb-0">Currently v0.0.0. Code licensed MIT</p>
         </div>
       </footer>
 
