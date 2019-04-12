@@ -12,72 +12,136 @@
   <body>
 
     <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-         <a class="navbar-brand" href="#">
-            <img src="./betterplace.svg" width="30" height="30" alt="">
-         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="./index.html">Home <span class="sr-only">(current)</span></a>
+      <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <a class="navbar-brand" href="#">
+           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 93 107" height=30px>
+             <path d='M74,74a42,42 0,1,0-57,0l28,29a42,41 0,0,0 0-57' fill='#364157' fill-rule='evenodd'/>
+           </svg>
+        </a>
+       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+       </button>
+     
+       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+         <ul class="navbar-nav mr-auto">
+           <li class="nav-item">
+             <a class="nav-link" href="./index.html">Home</a>
+           </li>
+           <li class="nav-item">
+             <a class="nav-link" href="#">Documentation</a>
+           </li>
+           <li class="nav-item">
+              <a class="nav-link" href="#">Demo</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://vincenterb.github.io/AlisonProject/no">Documentation</a>
-            </li>
-            <li class="nav-item">
-               <a class="nav-link" href="https://vincenterb.github.io/AlisonProject/no">Demo</a>
-             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Resources
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Application source code</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Hardware details</a>
-                <a class="dropdown-item" href="#">Packaging blueprints</a>
+           <li class="nav-item dropdown">
+             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               Resources
+             </a>
+             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+               <a class="dropdown-item" href="#">Application source code</a>
+               <div class="dropdown-divider"></div>
+               <a class="dropdown-item" href="#">Hardware details</a>
+               <a class="dropdown-item" href="#">Packaging blueprints</a>
 
+             </div>
+           </li>
+           <div class="tblack active">
+             <a class="nav-link" href="#">About</a>
+           </div>
+            </li>
+         </ul>
+         <form class="form-inline my-2 my-lg-0">
+             <button class="btn btn-danger" type="submit">Get started</button>
+         </form>  
+       </div>
+     </nav>
+    </header>
+
+  <div class="bg-lightgray p-3">
+
+    <div class="container mx-auto mb-5">
+      <h1 class="mt-0 maintitle text-center pt-4">About</h1>
+      <p class="lead text-center mb-0">Learn more about the origin of the <span style="color: #c82333">Alison Project</span>, </p>
+      <p class="lead text-center mb-0">the team behind it and everyone that helped in the development process.</p>
+    </div>
+
+    <div class="container-fluid mb-2">
+      <div class="row">
+          <div class="col-lg-6">
+            <div class="bg-white p-5 testh">
+              <div class="">
+                <h2 class="sectitle text-center mb-4 pb-3 mt-5">The project</h2>
+                <p class="lead text-center mb-5 ml-3 mr-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus, dui nec consequat vestibulum, arcu leo congue neque, ullamcorper placerat velit erat consectetur ex. In non quam quis nisl finibus efficitur facilisis non erat. In ultrices ipsum vitae eleifend dignissim. Ut mattis, mi sed consequat condimentum, neque nibh varius mi, ornare gravida tellus mauris non dolor. Quisque sed velit eu urna tincidunt pulvinar. Phasellus venenatis hendrerit odio. Ut non dictum arcu, vitae lobortis ligula. 
+                  Maecenas pretium eu ligula nec scelerisque. Nulla vestibulum congue elit sed pellentesque. </p>
               </div>
-            </li>
-            <li class="nav-item active">
-               <a class="nav-link" href="./about.html">About</a>
-             </li>
-          </ul>
-          
-        </div>
-      </nav>
-      </header>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="md-6">
+              <img src="group_photo.jpg" class="img" />
+            </div>
+          </div>
+      </div>
+  </div>
 
-      
-       <div class="d-flex flex-column flex-md-row align-items-md-center p-5 bg-light">
-        <div class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
-          <h1 class="bd-title mt-0">About</h1>
-          <p>Learn more about the origin of the Alison Project, the team behind it and everyone that helped in our development process.</p>
-          
-          <h2>The project</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus, dui nec consequat vestibulum, arcu leo congue neque, ullamcorper placerat velit erat consectetur ex. In non quam quis nisl finibus efficitur facilisis non erat. In ultrices ipsum vitae eleifend dignissim. Ut mattis, mi sed consequat condimentum, neque nibh varius mi, ornare gravida tellus mauris non dolor. Quisque sed velit eu urna tincidunt pulvinar. Phasellus venenatis hendrerit odio. Ut non dictum arcu, vitae lobortis ligula. Maecenas pretium eu ligula nec scelerisque. Nulla vestibulum congue elit sed pellentesque. </p>
-          
-          <h2>The team</h2>
-          <p>Pellentesque condimentum sed mi sed mollis. Maecenas in erat tincidunt, ullamcorper augue non, semper nunc. Praesent ultricies dui quis arcu condimentum ornare. In a pretium diam, ut condimentum enim. Praesent convallis auctor purus, eu faucibus massa mattis vitae. Donec dictum mi arcu, sed fringilla justo elementum aliquet. Pellentesque congue est sit amet tellus mollis, id ultrices tellus malesuada. Etiam volutpat augue vel ipsum hendrerit venenatis non id magna. </p>
-          
-          <h2>The contributers</h2>
-          <p>In molestie porttitor sem, ut viverra velit ultrices vel. Phasellus semper, arcu non fermentum commodo, velit purus tempor quam, sed finibus metus justo nec nunc. Integer semper sit amet diam quis ullamcorper. Aenean egestas purus et bibendum volutpat. Integer et quam leo.</p>
-        </div>
-      </div>  
+  <div class="container-fluid mt-4">
+      <div class="row mt-1">
+          <div class="col-lg-6">
+              <div class="md-6">
+                <img src="group_photo.jpg" class="img" />
+              </div>
+          </div>
 
-      <footer class="bd-footer text-muted">
-        <div class="container-fluid p-3 p-md-5">
-            <p>Designed and built by the <a href="#">Alison Team</a> with the help of our <a href="#">Tutors and other contributers</a>.
-            </p>
-            <p>Currently v0.0.0. Code licensed MIT</p>
-        </div>
-      </footer>
+          <div class="col-lg-6">
+            <div class="bg-white p-5 testh">
+              <div class="">
+                <h2 class="sectitle text-center mb-4 pb-3 mt-5">The team</h2>
+                <p class="lead text-center mb-5 ml-3 mr-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus, dui nec consequat vestibulum, arcu leo congue neque, ullamcorper placerat velit erat consectetur ex. In non quam quis nisl finibus efficitur facilisis non erat. In ultrices ipsum vitae eleifend dignissim. Ut mattis, mi sed consequat condimentum, neque nibh varius mi, ornare gravida tellus mauris non dolor. Quisque sed velit eu urna tincidunt pulvinar. Phasellus venenatis hendrerit odio. Ut non dictum arcu, vitae lobortis ligula. 
+                  Maecenas pretium eu ligula nec scelerisque. Nulla vestibulum congue elit sed pellentesque. </p>
+              </div>
+            </div>
+          </div>
+      </div>
+  </div>
 
-    <!-- Optional JavaScript -->
+  <div class="container-fluid mt-4 mb-3">
+      <div class="row">
+          <div class="col-lg-6">
+            <div class="bg-white p-5 testh">
+              <div class="">
+                <h2 class="sectitle text-center mb-4 pb-3 mt-5">The contributers</h2>
+                <p class="lead text-center mb-5 ml-3 mr-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus, dui nec consequat vestibulum, arcu leo congue neque, ullamcorper placerat velit erat consectetur ex. In non quam quis nisl finibus efficitur facilisis non erat. In ultrices ipsum vitae eleifend dignissim. Ut mattis, mi sed consequat condimentum, neque nibh varius mi, ornare gravida tellus mauris non dolor. Quisque sed velit eu urna tincidunt pulvinar. Phasellus venenatis hendrerit odio. Ut non dictum arcu, vitae lobortis ligula. 
+                  Maecenas pretium eu ligula nec scelerisque. Nulla vestibulum congue elit sed pellentesque. </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="md-6">
+              <img src="group_photo.jpg" class="img" />
+            </div>
+          </div>
+      </div>
+  </div>
+
+
+</div>
+
+<footer class="bd-footer text-muted">
+    <div class="container-fluid p-3 p-md-5">
+        <p class="mb-0">Designed and built by the <a href="#">Alison Team</a> with the help of our <a href="#">Tutors and other contributers</a>.
+        </p>
+        <p class="mb-0">Currently v0.0.0. Code licensed MIT</p>
+    </div>
+  </footer>
+ 
+
+    <!-- <h2>The team</h2>
+              <p>Pellentesque condimentum sed mi sed mollis. Maecenas in erat tincidunt, ullamcorper augue non, semper nunc. Praesent ultricies dui quis arcu condimentum ornare. In a pretium diam, ut condimentum enim. Praesent convallis auctor purus, eu faucibus massa mattis vitae. Donec dictum mi arcu, sed fringilla justo elementum aliquet. Pellentesque congue est sit amet tellus mollis, id ultrices tellus malesuada. Etiam volutpat augue vel ipsum hendrerit venenatis non id magna. </p>
+              
+              <h2>The contributers</h2>
+              <p>In molestie porttitor sem, ut viverra velit ultrices vel. Phasellus semper, arcu non fermentum commodo, velit purus tempor quam, sed finibus metus justo nec nunc. Integer semper sit amet diam quis ullamcorper. Aenean egestas purus et bibendum volutpat. Integer et quam leo.</p>
+            
+  -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

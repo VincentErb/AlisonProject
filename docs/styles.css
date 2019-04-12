@@ -11,6 +11,11 @@
     font-weight: 600;
     color:#666669;
  }
+
+ img {
+    max-width: 100%;
+    height: auto;
+  }
  
  .bottomtitle{
     font-size:2.2rem;
@@ -18,6 +23,10 @@
     font-weight: 600;
     color:#666669;
     margin-bottom:1rem;
+ }
+
+ .bordered{
+     border: solid black;
  }
 
  .sectitle{
@@ -29,6 +38,10 @@
 
  .bg-lightgray{
      background-color:#EFEFEF;
+ }
+
+ .testh{
+     height: 100%;
  }
 
  .bordervideo{
@@ -50,6 +63,10 @@
 
  .tbc{
      background-color: #364157 !important;
+ }
+
+ .test{
+     margin-left:0px !important;
  }
  .titletext{
      font-family:Roboto,Arial;
