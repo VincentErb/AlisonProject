@@ -23,35 +23,73 @@ def test_sound_recognition():
     import matplotlib.pyplot as plt
     import learning
 
-    rate, signal = wav.read("../samples/door-bell01.wav")
-    stft = learning.get_stft(signal[:, 0] / 1.0)
+    rate, signal = wav.read("../samples/test0.wav")
+    stft = learning.get_stft(signal / 1.0)
+
+    for i in range(1, 5):
+        if i == 2:
+            continue
+
+        rate, signal = wav.read("../samples/test" + str(i) + ".wav")
+        stft = np.concatenate((stft, learning.get_stft(signal / 1.0)), axis=1)
+        print(stft.shape)
+
 
     # obtain dictionary with NMF
-    dico, base_act = get_nmf(stft, 128)
+    dico, base_act = get_nmf(stft, 32)
+
+    rate2, signal2 = wav.read("../samples/door-bell01.wav")
+    stft2 = learning.get_stft(signal / 1.0)
 
     # get activations using the previously computed dictionary
     # Here it's used on the same sound, but we can use it on different
     # sounds in order to classify them
-    activations = get_activations(stft, dico)
+    activations = get_activations(stft2, dico, 10)
 
-    i = 200
+    i = 50
+    j = 50
+
+    frame_act1 = base_act[:, i]
+    frame_act2 = activations[:, j]
 
     plt.figure(figsize=(7, 7))
-    plt.subplot(2, 2, 1)
-    plt.title("Spectrum")
+    plt.subplot(4, 2, 1)
+    plt.title("Spectrum for sample a")
     plt.stem(stft[:, i])
 
-    plt.subplot(2, 2, 2)
-    plt.title("Reconstitution of the spectrum")
-    plt.stem(np.dot(dico, activations[:, i]))
+    plt.subplot(4, 2, 2)
+    plt.title("Spectrum for sample b")
+    plt.stem(stft2[:, j])
 
-    plt.subplot(2, 2, 3)
-    plt.title("Activations in the base spectrum")
-    plt.stem(base_act[:, i])
+    plt.subplot(4, 2, 3)
+    plt.title("Reconstitution of sample b")
+    plt.stem(np.dot(dico, frame_act2))
 
-    plt.subplot(2, 2, 4)
-    plt.title("Activations found in the other spectrum")
-    plt.stem(activations[:, i])
+    plt.subplot(4, 2, 5)
+    plt.title("Activations in the sample a")
+    plt.stem(frame_act1)
+
+    plt.subplot(4, 2, 6)
+    plt.title("Activations found in sample b")
+    plt.stem(frame_act2)
+
+    main_activation1 = np.argsort(frame_act1)[-10:]
+    main_activation2 = np.argsort(frame_act2)[-10:]
+
+    plt.subplot(4, 2, 7)
+    plt.title("Strongest feature identified in sample a")
+    plt.stem(dico[:,main_activation1[-1]])
+
+    plt.subplot(4, 2, 8)
+    plt.title("Strongest feature identified in sample b")
+    plt.stem(dico[:,main_activation2[-1]])
+
+    print(main_activation1)
+    print(frame_act1[main_activation1], "\n\n\n\n")
+    print(main_activation2)
+    print(frame_act2[main_activation2])
+
+    print(np.intersect1d(main_activation1, main_activation2))
 
     plt.show()
 
