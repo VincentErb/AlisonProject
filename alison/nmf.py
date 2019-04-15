@@ -36,7 +36,7 @@ def test_sound_recognition():
     print(stft.shape)
 
     # obtain dictionary with NMF
-    dico, base_act = get_nmf(stft, 3)
+    dico, base_act = get_nmf(stft, 4)
 
     rate2, signal2 = wav.read("../samples/door-bell01.wav")
     stft2 = learning.get_stft(signal / 1.0)
@@ -44,7 +44,7 @@ def test_sound_recognition():
     # get activations using the previously computed dictionary
     # Here it's used on the same sound, but we can use it on different
     # sounds in order to classify them
-    activations = get_activations(stft2, dico, 3)
+    activations = get_activations(stft2, dico, 4)
 
     i = 100
     j = 100
@@ -53,51 +53,27 @@ def test_sound_recognition():
     frame_act2 = activations[:, j]
 
     plt.figure(figsize=(7, 7))
-    plt.subplot(3, 3, 1)
+    plt.subplot(3, 2, 1)
     plt.title("Spectrum for sample a")
     plt.stem(stft[:, i])
 
-    plt.subplot(3, 3, 2)
+    plt.subplot(3, 2, 2)
     plt.title("Spectrum for sample b")
     plt.stem(stft2[:, j])
 
-    plt.subplot(3, 3, 3)
+    plt.subplot(3, 2, 3)
     plt.title("Reconstitution of sample b")
     plt.stem(np.dot(dico, frame_act2))
 
-    plt.subplot(3, 3, 4)
-    plt.title("Activations in the sample a")
-    plt.stem(frame_act1)
+    plt.subplot(3, 2, 4)
+    plt.title("Ligne 1")
+    plt.stem(activations[0,:])
 
-    plt.subplot(3, 3, 5)
-    plt.title("Activations found in sample b")
-    plt.stem(frame_act2)
+    plt.subplot(3, 2, 5)
+    plt.title("Ligne 2")
+    plt.stem(activations[1,:])
 
-    main_activation1 = np.argsort(frame_act1)[-3:]
-    main_activation2 = np.argsort(frame_act2)[-3:]
 
-    plt.subplot(3, 3, 6)
-    plt.title("Strongest feature identified in sample a")
-    plt.stem(dico[:,main_activation1[-1]])
-
-    plt.subplot(3, 3, 7)
-    plt.title("Feature sample 1")
-    plt.stem(dico[:,main_activation2[0]])
-
-    plt.subplot(3, 3, 8)
-    plt.title("Feature sample 2")
-    plt.stem(dico[:,main_activation2[1]])
-
-    plt.subplot(3, 3, 9)
-    plt.title("Feature sample 3")
-    plt.stem(dico[:,main_activation2[2]])
-
-    print(main_activation1)
-    print(frame_act1[main_activation1], "\n\n\n")
-    print(main_activation2)
-    print(frame_act2[main_activation2])
-
-    print(np.intersect1d(main_activation1, main_activation2))
 
     plt.show()
 
