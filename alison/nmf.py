@@ -23,23 +23,25 @@ def test_sound_recognition():
     import matplotlib.pyplot as plt
     import learning
 
-    rate, signal = wav.read("../samples/test1.wav")
-    stft = learning.get_stft(signal / 1.0)
-
-    #for i in range(1, 5):
-     #   if i == 2:
-     #       continue
-
-    rate, signal = wav.read("../samples/test2.wav")
-    stft = np.concatenate((stft, learning.get_stft(signal / 1.0)), axis=1)
+    rate, signal = wav.read("../samples/Sonnette/sonnette1.wav")
+    stft = learning.get_stft(signal * 1.0)
+    
+    for i in range(1, 5):
+        for file in [
+            "../samples/Sonnette/sonnette" + str(i) + ".wav",
+            "../samples/Fire_Alarm/fire_alarm" + str(i) + ".wav",
+            "../samples/Phone_Ring/phone" + str(i) + ".wav"]:
+            
+            rate, signal = wav.read(file)
+            stft = np.concatenate((stft, learning.get_stft(signal / 1.0)), axis=1)
 
     print(stft.shape)
 
     # obtain dictionary with NMF
-    dico, base_act = get_nmf(stft, 3)
+    dico, base_act = get_nmf(stft, 8)
 
-    rate2, signal2 = wav.read("../samples/door-bell01.wav")
-    stft2 = learning.get_stft(signal / 1.0)
+    rate2, signal2 = wav.read("../samples/Sonnette/sonnette5.wav")
+    stft2 = learning.get_stft(signal2 * 1.0)
 
     # get activations using the previously computed dictionary
     # Here it's used on the same sound, but we can use it on different
