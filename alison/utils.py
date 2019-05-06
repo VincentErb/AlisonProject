@@ -8,9 +8,17 @@ import six
 
 import numpy as np
 from numpy.lib.stride_tricks import as_strided
-"""
-from .._cache import cache
-from .exceptions import ParameterError"""
+
+'''Exception classes for librosa'''
+class LibrosaError(Exception):
+    '''The root librosa exception class'''
+    pass
+
+
+class ParameterError(LibrosaError):
+    '''Exception class for mal-formed inputs'''
+    pass
+
 
 # Constrain STFT block sizes to 256 KB
 MAX_MEM_BLOCK = 2**8 * 2**10

@@ -14,6 +14,8 @@ import resampy
 
 import six
 
+from utils import ParameterError
+
 #FFT
 __FFTLIB = None
 

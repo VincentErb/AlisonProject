@@ -1,0 +1,23 @@
+{
+    "fire alarm": [
+        "samples/Fire_Alarm/fire_alarm1.wav",
+        "samples/Fire_Alarm/fire_alarm2.wav",
+        "samples/Fire_Alarm/fire_alarm3.wav",
+        "samples/Fire_Alarm/fire_alarm4.wav",
+        "samples/Fire_Alarm/fire_alarm5.wav"
+    ],
+    "phone ring": [
+        "samples/Phone_Ring/phone1.wav",
+        "samples/Phone_Ring/phone2.wav",
+        "samples/Phone_Ring/phone3.wav",
+        "samples/Phone_Ring/phone4.wav",
+        "samples/Phone_Ring/phone5.wav"
+    ],
+    "sonnette": [
+        "samples/Sonnette/sonnette1.wav",
+        "samples/Sonnette/sonnette2.wav",
+        "samples/Sonnette/sonnette3.wav",
+        "samples/Sonnette/sonnette4.wav",
+        "samples/Sonnette/sonnette5.wav"
+    ]
+}

@@ -13,6 +13,15 @@ def get_stft_from_file(wav):
     return get_stft(y)
 
 def get_stft(data):
+    # check data
+    if type(data) != np.ndarray:
+        data = np.array(data)
+    
+    # try to detect 2 channel audio
+    if data.ndim == 2:
+        # keep only one channel
+        data = data[0,:].flatten()
+    
     # Window size : 1024 -> around 47 ms, rather standard for FFT
     m = np.abs(lib.stft(data, n_fft=1024, window='hann'))
     return m
@@ -33,7 +42,7 @@ def get_fft_from_audio(wav):
 
 # Plot spectrogram from STFT matrix
 def plot_spectrogram(matrix):
-    lib.display.specshow(lib.amplitude_to_db(matrix,
+    librosa.display.specshow(librosa.amplitude_to_db(matrix,
                                                      ref=np.max),
                              y_axis='log', x_axis='time')
     plt.title('Power spectrogram')
