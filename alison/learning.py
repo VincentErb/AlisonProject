@@ -1,5 +1,6 @@
-import librosa
-import librosa.display
+#import librosa
+#import librosa.display
+import lib
 import numpy as np
 import matplotlib.pyplot as plt
 
