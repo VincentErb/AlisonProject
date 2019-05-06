@@ -24,7 +24,7 @@ def task():
             try:
                 thread.start_new_thread(record,(data,i))
             except: 
-                print "Error: unable to start thread"
+                print ("Error: unable to start thread")
             i=i+1
         
 """ FUNCTION TO PAD DATA TO HAVE A CONSTANT SIZE
