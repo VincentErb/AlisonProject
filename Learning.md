@@ -5,7 +5,7 @@ The following section refers to the python module : ```learning.py```
 
 ## Audio file treatement
 
-We are using the Respeaker microphone to record a .WAV file from an input sound. The length of the recording is determined automatically by the Respeaker which stops recording when it detects the sound has stopped. Optimal sound length for registering is 1 to 3 seconds.   
+We are using the Respeaker microphone to record a .WAV file from an input sound. The length of the recording is determined automatically by the Respeaker which stops recording when it detects the sound has stopped. Manual sound recording can be achieved using Respeaker's *record* function. 
 
 ## Feature extraction
 
