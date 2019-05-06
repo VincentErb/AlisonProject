@@ -9,12 +9,12 @@ import matplotlib.pyplot as plt
 # Compute Short Term Fourier Transform (STFT) from an audio file path
 # Returns a numpy matrix
 def get_stft_from_file(wav):
-    y, sample_rate = librosa.load(wav)
+    y, sample_rate = lib.load(wav)
     return get_stft(y)
 
 def get_stft(data):
     # Window size : 1024 -> around 47 ms, rather standard for FFT
-    m = np.abs(librosa.stft(data, n_fft=1024, window='hann'))
+    m = np.abs(lib.stft(data, n_fft=1024, window='hann'))
     return m
 
 # Extracts one column of the STFT matrix
@@ -33,7 +33,7 @@ def get_fft_from_audio(wav):
 
 # Plot spectrogram from STFT matrix
 def plot_spectrogram(matrix):
-    librosa.display.specshow(librosa.amplitude_to_db(matrix,
+    lib.display.specshow(lib.amplitude_to_db(matrix,
                                                      ref=np.max),
                              y_axis='log', x_axis='time')
     plt.title('Power spectrogram')
