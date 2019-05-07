@@ -8,25 +8,28 @@ import os
 from respeaker import Microphone
 from learning import *
 
-LEN_AUDIO = 1 #in seconds
+LEN_AUDIO = 1  #in seconds
 RATE = 16000
 #NUM = 1
 LEN_DATA = int(LEN_AUDIO * RATE * 2)
 
+
 def task():
     i = 0
-    mic= Microphone()
+    mic = Microphone()
     while 1:
         print("Listening\n")
-        data=mic.listen(1,1)            #make recordings of one second        
-        data=b''.join(data)
-        if(len(data)>0):                #if it's not just a silence
+        data = mic.listen(1, 1)  #make recordings of one second
+        data = b''.join(data)
+        if (len(data) > 0):  #if it's not just a silence
             try:
-                _thread.start_new_thread(record,(data,i))   #thread to treat data
-            except: 
-                print ("Error: unable to start thread")
-            i=i+1
-        
+                _thread.start_new_thread(record,
+                                         (data, i))  #thread to treat data
+            except:
+                print("Error: unable to start thread")
+            i = i + 1
+
+
 """ FUNCTION TO PAD DATA TO HAVE A CONSTANT SIZE
 
 def treat_data(data):               
@@ -49,8 +52,8 @@ def treat_data(data):
         treat_data(data)
 """
 
-def record(data,i):
 
+def record(data, i):
     """ To name all the files in the right order for AUDACITY 
     global NUM
 
@@ -61,36 +64,38 @@ def record(data,i):
     elif NUM<1000:
         name = '0'+str(NUM)   """
 
-    path = os.getcwd()+'/'+str(i)+'.wav'
-    
+    path = os.getcwd() + '/' + str(i) + '.wav'
+
     #path = '/home/pi/Documents/Respeaker/TestWav/test'+str(i)+'.wav'
 
-    print("Launching Thread "+str(i)) 
+    print("Launching Thread " + str(i))
     #Save raw data as wave file
-    f = wave.open(path,'wb')
+    f = wave.open(path, 'wb')
     f.setframerate(RATE)
     f.setsampwidth(2)
     f.setnchannels(1)
     f.writeframes(data)
     f.close
-    
+
     #Call SFT function
     sft = get_stft_from_file(path)
     print(sft.shape)
     print(get_one_fft(sft))
-    
+
     #destroy the created file
     if os.path.exists(path):
         os.remove(path)
     else:
         print("The file does not exist")
-        
+
+
 def main():
     print('LAUNCH')
     try:
         task()
     except KeyboardInterrupt:
         print('Quit')
+
 
 if __name__ == '__main__':
     main()

@@ -9,25 +9,26 @@ import logging
 
 alison = None
 
+
 def learn_from_file(filename):
     global alison
-    
+
     with open(filename, 'r') as json_file:
         learn_data = json.load(json_file)
-        
+
         for tag, files in learn_data.items():
             audio = np.array([])
-            
+
             # TODO create a method to concatenate audio files
             for file in files:
                 rate, signal = wav.read(args.file)
                 signal = np.array(signal)
-                
+
                 if signal.ndim == 2:
                     signal = signal[0, :].flatten()
-                
+
                 audio = np.concatenate((audio, signal))
-            
+
             alison.add_dictionary_entry(tag, audio)
 
 

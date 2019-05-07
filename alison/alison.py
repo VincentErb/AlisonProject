@@ -92,7 +92,8 @@ class Alison:
                     tag_info.activated = activated
 
                     if tag_info.activated:
-                        self.events.append(AlisonEvent(self.current_position + i, tag))
+                        self.events.append(
+                            AlisonEvent(self.current_position + i, tag))
 
         self.current_position += parsed_size
         self.current_nmf_results = self.current_nmf_results[:, :-self.horizon]
