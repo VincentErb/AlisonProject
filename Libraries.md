@@ -9,12 +9,21 @@ The Respeaker Project is a sound processing peripheral for Raspberry Pi. Hardwar
 
 We used the Respeaker to record .WAV files for new sound registering, and real time audio recording for the recognition process.
 
-## Librosa
+## LibROSA
+
+Our main library is LibROSA. It is a well known python signal processing tool that builds on sci-kit learn, another famous library. It helps us with everything from STFT's to our main recognizing tool : NMF.   
+[More about LibROSA](https://librosa.github.io/librosa/ )
 
 
+#### Raspberry Pi problems
 
-## PiHue
+While we installed every other library easily on our Raspberry Pi, dozens of hours of trial weren't enough for us to manage to insall LibROSA. LibROSA simply isn't meant for a Raspberry Pi processor. Fortunately, the methods used by Alison aren't the problematic ones in LibROSA.  
+To solve the issue, we compiled our own mini version of LibROSA (the library is under ISC license, open to modifications) using only needed modules.
 
+## PHue
+
+Phue is a library designed to control Philips Hue lights through python. It is used to communicate sound class detection information in real time.   
+[Get PHue](https://github.com/studioimaginaire/phue)
 
 
 ## Mkdocs
