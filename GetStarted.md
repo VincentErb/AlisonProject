@@ -50,7 +50,7 @@ Check that the IP address of eth0 has been changed to 198.162.4.100 using:
 ```
 ifconfig eth0|grep ‘inet ‘
 ```
-- Install the DHCP daemon (isc-dhcp-server)
+## Install the DHCP daemon (isc-dhcp-server)
 ```
 sudo apt-get update
 sudo apt-get install isc-dhcp-server
