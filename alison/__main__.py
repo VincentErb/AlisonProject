@@ -21,7 +21,7 @@ def learn_from_file(filename):
 
             # TODO create a method to concatenate audio files
             for file in files:
-                rate, signal = wav.read(args.file)
+                rate, signal = wav.read(file)
                 signal = np.array(signal)
 
                 if signal.ndim == 2:
@@ -37,9 +37,38 @@ def on_receiving_audio(audio):
     alison.process_audio(audio)
 
     for evt in alison.events:
-        print("Recognized ", evt.tag, " at time ", evt.time)
+        print("Recognized", evt.tag, "at time", evt.time, "with value",
+              evt.value)
 
     alison.events.clear()
+
+
+def plot_dictionary():
+    import matplotlib.pyplot as plt
+    global alison
+
+    plt.figure(figsize=(7, 7))
+    sizex = alison.components_per_tag
+    sizey = alison.dictionary.shape[1] / sizex
+
+    for i in range(0, alison.dictionary.shape[1]):
+        plt.subplot(sizey, sizex, i + 1)
+        plt.stem(alison.dictionary[:, i])
+
+    plt.show()
+
+
+def plot_nmf_results():
+    import matplotlib.pyplot as plt
+    global alison
+
+    plt.figure(figsize=(7, 7))
+
+    for i in range(0, alison.current_nmf_results.shape[0]):
+        plt.subplot(6, 4, i + 1)
+        plt.stem(alison.current_nmf_results[i, :])
+
+    plt.show()
 
 
 if __name__ == "__main__":

@@ -4,9 +4,10 @@ import nmf
 
 
 class AlisonEvent:
-    def __init__(self, time, tag):
+    def __init__(self, time, tag, value):
         self.time = time
         self.tag = tag
+        self.value = value
 
 
 class TagInfo:
@@ -17,15 +18,20 @@ class TagInfo:
 
 class Alison:
     def __init__(self, **kwargs):
-        self.threshold = 20
-        self.horizon = 10
+        self.threshold = 10
+        self.horizon = 20
+        self.components_per_tag = 8
+        # sample rate in hertz
+        self.sample_rate = 25
 
         self.tags = {}
+        # shape: [n_features, n_components]
         self.dictionary = None
 
         # current_audio contains the audio that was recorded but not yet parsed.
         self.current_position = 0
         self.current_audio = []
+        # shape: [n_components, time]
         self.current_nmf_results = []
 
         # == Results
@@ -47,14 +53,16 @@ class Alison:
         
         entry: a sound sample containing mostly the sound to recognize."""
         stft = get_stft(entry)
-        dico, _ = nmf.get_nmf(stft, 3)
+        dico, _ = nmf.get_nmf(stft, self.components_per_tag)
 
         if self.dictionary is None:
             self.dictionary = dico
         else:
             self.dictionary = np.concatenate((self.dictionary, dico), axis=1)
 
-        self.tags[tag] = TagInfo(range(0, dico.shape[1]))
+        range_stop = self.dictionary.shape[1]
+        range_start = range_stop - dico.shape[1]
+        self.tags[tag] = TagInfo(range(range_start, range_stop))
         self._reset_sound_processing()
 
     def process_audio(self, audio):
@@ -80,20 +88,25 @@ class Alison:
         parsed_size = self.current_nmf_results.shape[1] - self.horizon
 
         for tag, tag_info in self.tags.items():
+            print(tag)
             for i in range(parsed_size):
                 tag_range = tag_info.components_range
-                results = np.mean(
+                results = np.percentile(
                     self.current_nmf_results[tag_range.start:tag_range.stop, i:
                                              (i + self.horizon)],
+                    70,
                     axis=1)
-                activated = np.max(results) > self.threshold
+                value = np.percentile(results, 70)
+                activated = value > self.threshold
 
                 if tag_info.activated != activated:
                     tag_info.activated = activated
 
                     if tag_info.activated:
                         self.events.append(
-                            AlisonEvent(self.current_position + i, tag))
+                            AlisonEvent(
+                                (self.current_position + i) / self.sample_rate,
+                                tag, value))
 
         self.current_position += parsed_size
-        self.current_nmf_results = self.current_nmf_results[:, :-self.horizon]
+        # self.current_nmf_results = self.current_nmf_results[:, :-self.horizon]

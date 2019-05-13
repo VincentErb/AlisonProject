@@ -9,11 +9,11 @@ import scipy.interpolate
 #LOAD
 import soundfile as sf
 import audioread
-import utils
 import resampy
 
 import six
 
+import utils
 from utils import ParameterError
 
 #FFT

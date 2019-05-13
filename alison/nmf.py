@@ -12,7 +12,8 @@ def get_activations(stft, dico, n_nonzero_coefs=None):
     coder = SparseCoder(
         dictionary=dico.T,
         transform_n_nonzero_coefs=n_nonzero_coefs,
-        transform_algorithm="omp")
+        transform_algorithm="lasso_cd",
+        positive_code=True)
     return coder.transform(stft.T).T
 
 
@@ -21,8 +22,7 @@ def test_sound_recognition_v2():
     import learning
 
     files = [
-        "../samples/Sonnette/sonnette",
-        "../samples/Fire_Alarm/fire_alarm",
+        "../samples/Sonnette/sonnette", "../samples/Fire_Alarm/fire_alarm",
         "../samples/Phone_Ring/phone"
     ]
 
@@ -66,8 +66,7 @@ def test_sound_recognition():
     stft = learning.get_stft(signal * 1.0)
 
     for file in [
-            "../samples/Sonnette/sonnette",
-            "../samples/Fire_Alarm/fire_alarm",
+            "../samples/Sonnette/sonnette", "../samples/Fire_Alarm/fire_alarm",
             "../samples/Phone_Ring/phone"
     ]:
 
