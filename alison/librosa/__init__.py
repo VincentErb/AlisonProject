@@ -13,8 +13,8 @@ import resampy
 
 import six
 
-import utils
-from utils import ParameterError
+from . import utils
+from .utils import ParameterError
 
 #FFT
 __FFTLIB = None

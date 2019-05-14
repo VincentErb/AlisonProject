@@ -1,9 +1,9 @@
 import numpy as np
-from learning import get_stft
-import nmf
+import alison.nmf as nmf
+from alison.spectrum import get_stft
 
 
-class AlisonEvent:
+class SoundEvent:
     def __init__(self, time, tag, value):
         self.time = time
         self.tag = tag
@@ -16,7 +16,7 @@ class TagInfo:
         self.activated = False
 
 
-class Alison:
+class SoundRecognizer:
     def __init__(self, **kwargs):
         self.threshold = 10
         self.horizon = 20
@@ -88,7 +88,6 @@ class Alison:
         parsed_size = self.current_nmf_results.shape[1] - self.horizon
 
         for tag, tag_info in self.tags.items():
-            print(tag)
             for i in range(parsed_size):
                 tag_range = tag_info.components_range
                 results = np.percentile(
@@ -104,9 +103,9 @@ class Alison:
 
                     if tag_info.activated:
                         self.events.append(
-                            AlisonEvent(
+                            SoundEvent(
                                 (self.current_position + i) / self.sample_rate,
                                 tag, value))
 
         self.current_position += parsed_size
-        # self.current_nmf_results = self.current_nmf_results[:, :-self.horizon]
+        self.current_nmf_results = self.current_nmf_results[:, :-self.horizon]

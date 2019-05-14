@@ -1,11 +1,7 @@
-#import librosa
-#import librosa.display
-import lib
+import alison.librosa as lib
 import numpy as np
-import matplotlib.pyplot as plt
 
 # MODULE TAKES AUDIO FILE PATH AS INPUT AND RETURNS FFT COEFFICIENTS OF A WINDOW OF THE SOUND
-
 
 # Compute Short Term Fourier Transform (STFT) from an audio file path
 # Returns a numpy matrix
@@ -44,43 +40,3 @@ def get_fft_from_audio(wav):
     return get_one_fft(stft)
 
 
-# Plot spectrogram from STFT matrix
-def plot_spectrogram(matrix):
-    librosa.display.specshow(
-        librosa.amplitude_to_db(matrix, ref=np.max),
-        y_axis='log',
-        x_axis='time')
-    plt.title('Power spectrogram')
-    plt.colorbar(format='%+2.0f dB')
-    plt.tight_layout()
-    plt.show()
-
-
-# Plots FFT from 1D-Array
-# ATTENTION : shift in frequency UNSOLVED, not important ATM
-def plot_fft(vector):
-    y = vector.ravel()
-    x = get_frequency_axis()
-    print(y)
-    plt.plot(x, y)
-    plt.show()
-
-
-# Sub-function used to plot_fft
-def get_frequency_axis():
-    res = np.empty(513)
-    res[0] = 0
-    res[1] = 2.1
-    for i in range(10, 512):
-        res[i] = ((i - 10) * 44100 / 1024)
-    return res
-
-
-# Basic test function
-def test():
-    path = "../samples/door-bell01.wav"
-    ma = get_stft_from_file(path)
-    print(ma.shape)
-    get_one_fft(ma)
-    plot_spectrogram(ma)
-    plot_fft(get_one_fft(ma))

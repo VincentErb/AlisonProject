@@ -6,7 +6,7 @@ import _thread
 import os
 
 from respeaker import Microphone
-from learning import *
+from alison.spectrum import *
 
 LEN_AUDIO = 1  #in seconds
 RATE = 16000
