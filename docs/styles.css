@@ -9,7 +9,7 @@
     font-size:3.9rem;
     font-family:Roboto,Arial;
     font-weight: 600;
-    color:#666669;
+    color:#48484b;
  }
 
  img {
@@ -26,10 +26,14 @@
     font-size:2.2rem;
     font-family:Roboto,Arial;
     font-weight: 600;
-    color:#666669;
+    color:#48484b;
     margin-bottom:1rem;
  }
 
+ .inner {
+    width: 64%;
+    margin: 0 auto;
+  }
  .bordered{
      border: solid black;
  }
@@ -38,19 +42,19 @@
     font-size:2.75rem;
     font-family:Roboto,Arial;
     font-weight: 600;
-    color:#7b7b80;
+    color:#48484b;
  }
 
  .bg-lightgray{
      background-color:#EFEFEF;
  }
 
- .bg-lightred{
-    background-color:#ec5043 !important;
+ .bg-blue{
+    background-color:#3F51B5 !important;
 }
 
-.bg-green{
-    background-color:#3bab59 !important;
+.bg-darkblue{
+    background-color:#3f51b5 !important;
 }
 
  .testh{
@@ -60,7 +64,7 @@
  .bordervideo{
     padding-top: 1.25rem;
     padding-bottom: 0.3rem;
-    border-bottom: 3px solid #c82333;
+    border-bottom: 3px solid #3f51b5;
  }
  .tblack{
     float: right;
@@ -71,6 +75,7 @@
  }
  .padding5{
      padding-top:3rem;
+     padding-bottom:3rem;
  }
 
  .forcerobo{
