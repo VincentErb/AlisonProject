@@ -6,7 +6,7 @@ import _thread
 import os
 
 from respeaker import Microphone
-from alison.spectrum import *
+from spectrum import *
 
 LEN_AUDIO = 1  #in seconds
 RATE = 16000
@@ -17,18 +17,20 @@ LEN_DATA = int(LEN_AUDIO * RATE * 2)
 def task():
     i = 0
     mic = Microphone()
-    while 1:
-        print("Listening\n")
-        data = mic.listen(1, 1)  #make recordings of one second
-        data = b''.join(data)
-        if (len(data) > 0):  #if it's not just a silence
-            try:
-                _thread.start_new_thread(record,
+    try:
+        while 1:
+            print("Listening\n")
+            data = mic.listen(1, 1)  #make recordings of one second
+            data = b''.join(data)
+            if (len(data) > 0):  #if it's not just a silence
+                try:
+                    _thread.start_new_thread(record,
                                          (data, i))  #thread to treat data
-            except:
-                print("Error: unable to start thread")
-            i = i + 1
-
+                except:
+                    print("Error: unable to start thread")
+                i = i + 1
+    except KeyboardInterrupt:
+        print("Quit")
 
 """ FUNCTION TO PAD DATA TO HAVE A CONSTANT SIZE
 
@@ -54,15 +56,6 @@ def treat_data(data):
 
 
 def record(data, i):
-    """ To name all the files in the right order for AUDACITY 
-    global NUM
-
-    if NUM < 10:
-        name = '000'+str(NUM)
-    elif NUM<100:
-        name = '00'+str(NUM)
-    elif NUM<1000:
-        name = '0'+str(NUM)   """
 
     path = os.getcwd() + '/' + str(i) + '.wav'
 
@@ -79,23 +72,20 @@ def record(data, i):
 
     #Call SFT function
     sft = get_stft_from_file(path)
-    print(sft.shape)
-    print(get_one_fft(sft))
-
+    #print(sft.shape)
+    #print(get_one_fft(sft))
+'''
     #destroy the created file
     if os.path.exists(path):
         os.remove(path)
     else:
         print("The file does not exist")
-
+'''
 
 def main():
     print('LAUNCH')
-    try:
-        task()
-    except KeyboardInterrupt:
-        print('Quit')
-
+    task()
+    
 
 if __name__ == '__main__':
     main()

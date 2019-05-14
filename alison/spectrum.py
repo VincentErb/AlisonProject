@@ -1,4 +1,4 @@
-import alison.librosa as lib
+import librosa as lib
 import numpy as np
 
 # MODULE TAKES AUDIO FILE PATH AS INPUT AND RETURNS FFT COEFFICIENTS OF A WINDOW OF THE SOUND
