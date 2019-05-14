@@ -74,13 +74,13 @@ def record(data, i):
     sft = get_stft_from_file(path)
     #print(sft.shape)
     #print(get_one_fft(sft))
-'''
+
     #destroy the created file
     if os.path.exists(path):
         os.remove(path)
     else:
         print("The file does not exist")
-'''
+
 
 def main():
     print('LAUNCH')
