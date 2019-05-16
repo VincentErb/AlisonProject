@@ -5,7 +5,7 @@ This project uses libraries to help with sound processing and signal analysis, m
 ## Respeaker
 
 The Respeaker Project is a sound processing peripheral for Raspberry Pi. Hardware-wise, it comprises 4 microphones allowing for sound source localization. Software-wise, it helps with sound encoding and processing (it also provides advanced features like speech recognition that are not used in this project).  
-[Learn more about the Respeaker Project](https://www.google.com "Respeaker - about")
+[Learn more about the Respeaker Project](https://respeaker.io/ "Respeaker")
 
 We used the Respeaker to record .WAV files for new sound registering, and real time audio recording for the recognition process.
 
