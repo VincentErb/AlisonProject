@@ -6,3 +6,6 @@ __pycache__/
 
 # Virtual environment
 env/
+
+# IDE files
+/.idea
