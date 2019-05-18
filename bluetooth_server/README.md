@@ -1,12 +1,15 @@
 # CONFIGURATION NECESSAIRE
 
-## Paquets à installer avant la mise à jour de Bluez
+## Mettre à jour le service bluetooth bluez à la version 5.50
+
+
++ Paquets à installer avant la mise à jour de Bluez
 ```
 sudo apt-get update
 sudo apt-get install libdbus-1-dev libglib2.0-dev libudev-dev libical-dev libreadline-dev -y
 ```
 
-## Mettre à jour le service bluetooth bluez à la version 5.50
++ Télécharger, compiler et installer bluez v5.50
 
 ```
 wget  www.kernel.org/pub/linux/bluetooth/bluez-5.50.tar.xz
@@ -17,12 +20,19 @@ sudo make install
 sudo reboot
 ```
 
-## Paquets bluez utlisés par le script python pour lancer le serveur
 
+## Installer PyBluez via pip
++ paquets utlisés par pip pour compiler pybluez
+
+```
 sudo apt-get install libbluetooth-dev
 sudo apt-get install  python-dev
-sudo pip install pybluez
+```
 
++ Installer pybluez
+```
+sudo pip install pybluez
+```
 
 ## Si le serveur vous affiche une erreur disant **No such file or directory** 
 Il faudra faire quelques modifications afin d'activer la communication SPP sur la raspberry Pi ([source](https://www.raspberrypi.org/forums/viewtopic.php?t=133263&p=887944))
