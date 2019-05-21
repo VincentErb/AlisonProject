@@ -4,11 +4,14 @@ import sys
 import argparse
 import json
 import logging
+import threading
 
-from alison import learn_from_file, on_receiving_audio
-from alison.recognition import SoundRecognizer
-# import alison.listen
+from . import listen
+from . import learn_from_file, on_receiving_audio
+from .recognition import SoundRecognizer
 
+def launch_bluetooth_server():
+    import bluetooth_server
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
@@ -35,4 +38,11 @@ if __name__ == "__main__":
         on_receiving_audio(recognizer, signal * 1.0)
     else:
         logging.info("Input signal set to ReSpeaker")
-        # TODO Launch Respeaker thread
+        mic_listener = listen.MicListener(recognizer)
+        
+        logging.info("Starting bluetooth server thread")
+        thread1 = threading.Thread(target = launch_bluetooth_server)
+        thread1.start()
+        
+        mic_listener.run_listening()
+        

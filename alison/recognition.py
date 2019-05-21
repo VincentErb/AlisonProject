@@ -20,7 +20,7 @@ class SoundRecognizer:
     def __init__(self, **kwargs):
         self.threshold = 10
         self.horizon = 20
-        self.components_per_tag = 8
+        self.components_per_tag = 16
         # sample rate in hertz
         self.sample_rate = 25
 
