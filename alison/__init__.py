@@ -25,16 +25,6 @@ def learn_from_file(recognizer, filename):
             recognizer.add_dictionary_entry(tag, audio)
 
 
-def on_receiving_audio(recognizer, audio):
-    recognizer.process_audio(audio)
-
-    for evt in recognizer.events:
-        print("Recognized", evt.tag, "at time", evt.time, "with value",
-              evt.value)
-
-    recognizer.events.clear()
-
-
 def plot_dictionary(recognizer):
     import matplotlib.pyplot as plt
 

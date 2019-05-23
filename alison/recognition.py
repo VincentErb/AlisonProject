@@ -36,7 +36,8 @@ class SoundRecognizer:
 
         # == Results
         # events are for example when a sound started to play
-        self.events = []
+        self.events = []  
+        self.callback = kwargs["callback"] if "callback" in kwargs else None
 
     def _component_count(self):
         return self.dictionary.shape[1]
@@ -102,10 +103,13 @@ class SoundRecognizer:
                     tag_info.activated = activated
 
                     if tag_info.activated:
-                        self.events.append(
-                            SoundEvent(
-                                (self.current_position + i) / self.sample_rate,
-                                tag, value))
+                        event = SoundEvent(
+                            (self.current_position + i) / self.sample_rate,
+                            tag, value)
+                        self.events.append(event)
+                        
+                        if self.callback != None:
+                            self.callback(event)
 
         self.current_position += parsed_size
         self.current_nmf_results = self.current_nmf_results[:, :-self.horizon]
