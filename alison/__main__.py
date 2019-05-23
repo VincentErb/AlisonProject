@@ -6,12 +6,14 @@ import json
 import logging
 import threading
 
-from . import listen
+from . import listen, mic_listener
 from . import learn_from_file, on_receiving_audio
 from .recognition import SoundRecognizer
 
+
 def launch_bluetooth_server():
     import bluetooth_server
+
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
@@ -39,10 +41,9 @@ if __name__ == "__main__":
     else:
         logging.info("Input signal set to ReSpeaker")
         mic_listener = listen.MicListener(recognizer)
-        
+
         logging.info("Starting bluetooth server thread")
-        thread1 = threading.Thread(target = launch_bluetooth_server)
+        thread1 = threading.Thread(target=launch_bluetooth_server)
         thread1.start()
-        
+
         mic_listener.run_listening()
-        

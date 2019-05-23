@@ -13,6 +13,7 @@ RATE = 16000
 #NUM = 1
 LEN_DATA = int(LEN_AUDIO * RATE * 2)
 
+
 class MicListener:
     learning = False
     learning_recording = None
@@ -25,27 +26,27 @@ class MicListener:
 
     def run_listening(self):
         mic = Microphone()
-        
+
         try:
             while 1:
                 print("Listening\n")
                 was_learning = self.learning
                 data = mic.listen(LEN_AUDIO, 1)  #make recordings of one second
                 data = b''.join(data)
-                
+
                 if was_learning:
                     self.learning_recording += data
-                    
+
                     if not self.learning:
                         self.end_learning_event.set()
                 else:
                     self.recognizer_lock.acquire()
                     self.recognizer.process_audio(data)
                     self.recognizer_lock.release()
-                    
+
                     if self.learning:
                         self.end_learning_event.clear()
-                
+
         except KeyboardInterrupt:
             print("Quit")
 
@@ -55,7 +56,7 @@ class MicListener:
         """
         self.learning_recording = None
         self.learning = True
-        
+
     def stop_learning(self):
         """
         Stop recording a sound for learning purpose and returns the recorded
@@ -64,7 +65,7 @@ class MicListener:
         self.learning = False
         self.end_learning_event.wait()
         return self.learning_recording
-        
+
     def register_sound(self, name, audio):
         self.recognizer_lock.acquire()
         self.recognizer.add_dictionary_entry(name, audio)
@@ -99,6 +100,7 @@ class MicListener:
         else:
             print("The file does not exist")
         """
+
 
 if __name__ == '__main__':
     # MicListener(None).run_listening()

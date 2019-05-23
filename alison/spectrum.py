@@ -3,6 +3,7 @@ import numpy as np
 
 # MODULE TAKES AUDIO FILE PATH AS INPUT AND RETURNS FFT COEFFICIENTS OF A WINDOW OF THE SOUND
 
+
 # Compute Short Term Fourier Transform (STFT) from an audio file path
 # Returns a numpy matrix
 def get_stft_from_file(wav):
@@ -38,5 +39,3 @@ def get_one_fft(stft):
 def get_fft_from_audio(wav):
     stft = get_stft_from_file(wav)
     return get_one_fft(stft)
-
-
