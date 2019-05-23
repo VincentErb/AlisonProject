@@ -1,0 +1,1 @@
+This is a reduced version of librosa to avoid compatibility problems with the raspberry pi.

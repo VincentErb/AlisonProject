@@ -2,6 +2,8 @@ import scipy.io.wavfile as wav
 import numpy as np
 import json
 
+mic_listener = None
+
 
 def learn_from_file(recognizer, filename):
     with open(filename, 'r') as json_file:

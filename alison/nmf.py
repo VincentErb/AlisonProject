@@ -1,6 +1,5 @@
 from sklearn.decomposition import SparseCoder, NMF
-import alison.librosa as lib
-# TODO delete this import
+import librosa as lib
 import librosa.decompose as dcp
 
 

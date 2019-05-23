@@ -6,7 +6,7 @@ import json
 import logging
 import threading
 
-from . import listen, mic_listener
+# from . import listen, mic_listener
 from . import learn_from_file, on_receiving_audio
 from .recognition import SoundRecognizer
 

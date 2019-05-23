@@ -1,4 +1,5 @@
 from bluetooth import *
+from alison import mic_listener
 import subprocess
 
 server_sock=BluetoothSocket( RFCOMM )
@@ -23,6 +24,8 @@ while True:
     client_sock, client_info = server_sock.accept()
     print("Accepted connection from ", client_info)
 
+    current_audio = None
+
     try:
         #Loop that listen for a new message
         while True:
@@ -30,22 +33,29 @@ while True:
             if len(msg) == 0: break
         
             #Do actions depending on received message
-
-
-            if(msg.startswith('listen sound')):
-                tag = msg.split(" | ")[1]
+            
+            if(msg.startswith('start')):
                 # Tell respeaker thread to start listening sound
+                mic_listener.start_learning()
 
                 #if all done right
                 client_sock.send("done.")
                 #else client_sock.send("error")
-            elif(msg == "save sound"):
+            elif(msg == "stop"):
+                current_audio = mic_listener.stop_learning()
+                
                 client_sock.send("done.")
-            elif(msg == "create test.txt file"):
-                subprocess.call(["touch", "test.txt"])
-                client_sock.send("done.")
+            elif(msg == "save"):
+                tag = msg.split(" | ")[1]
+                
+                if current_audio != None:
+                    mic_listener.register_sound(tag, current_audio)
+                    client_sock.send("done.")
+                else 
+                    client_sock.send("error: no recording available")
+                
             else:
-                client_sock.send("received [%s]." % msg)
+                client_sock.send("error: unknown message '%s'" % msg)
             print("received [%s]" % msg)
     except IOError:
         pass
