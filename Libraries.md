@@ -4,14 +4,14 @@ This project uses libraries to help with sound processing and signal analysis, m
 
 ## Respeaker
 
-The Respeaker Project is a sound processing peripheral for Raspberry Pi. Hardware-wise, it comprises 4 microphones allowing for sound source localization. Software-wise, it helps with sound encoding and processing (it also provides advanced features like speech recognition that are not used in this project).  
+The Respeaker Project is a sound processing peripheral for Raspberry Pi. Hardware-wise, it includes 4 microphones allowing sound source localization. Software-wise, it helps with sound encoding and processing (it also provides advanced features like speech recognition that are not used in this project).
 [Learn more about the Respeaker Project](https://respeaker.io/ "Respeaker")
 
 We used the Respeaker to record .WAV files for new sound registering, and real time audio recording for the recognition process.
 
 ## LibROSA
 
-Our main library is LibROSA. It is a well known python signal processing tool that builds on sci-kit learn, another famous library. It helps us with everything from STFT's to our main recognizing tool : NMF.   
+Our main library is LibROSA. It is a well-known python signal processing tool that builds on sci-kit learn, another famous library. It helps us with everything that has to do with sound processing, including STFT's and NMF.
 [More about LibROSA](https://librosa.github.io/librosa/ )
 
 
