@@ -20,6 +20,7 @@ Your Raspberry Pi must run the latest version of Raspbian available.
 ```
 sudo apt-get update
 sudo apt-get upgrade
+sudo apt-get install swig libpulse-dev libasound2-dev libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0
 git clone https://github.com/respeaker/seeed-voicecard.git
 cd seeed-voicecard
 sudo ./install.sh
