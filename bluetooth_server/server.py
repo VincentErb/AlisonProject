@@ -13,7 +13,7 @@ advertise_service( server_sock, "Alison_Project_Bluetooth_Server",
                    service_id = uuid,
                    service_classes = [ uuid, SERIAL_PORT_CLASS ],
                    profiles = [ SERIAL_PORT_PROFILE ], 
-#                   protocols = [ OBEX_UUID ] 
+                   #protocols = [ OBEX_UUID ]
                     )
                    
 print("Waiting for connection on RFCOMM channel %d" % port)
@@ -28,25 +28,25 @@ while True:
         while True:
             msg = client_sock.recv(1024)
             if len(msg) == 0: break
-        
+
             #Do actions depending on received message
-
-
-            if(msg.startswith('listen sound')):
-                tag = msg.split(" | ")[1]
+            if(msg == "start"):
                 # Tell respeaker thread to start listening sound
 
                 #if all done right
-                client_sock.send("done.")
+
+                client_sock.send("done. [%s]." % msg)
                 #else client_sock.send("error")
-            elif(msg == "save sound"):
-                client_sock.send("done.")
-            elif(msg == "create test.txt file"):
-                subprocess.call(["touch", "test.txt"])
-                client_sock.send("done.")
+            elif(msg == "stop"):
+                client_sock.send("done. [%s]." % msg)
+            elif(msg.startswith('save')):
+                tag = msg.split(" | ")[1]
+                color = msg.split(" | ")[2]
+                client_sock.send("done. [%s]." % msg)
             else:
                 client_sock.send("received [%s]." % msg)
             print("received [%s]" % msg)
+
     except IOError:
         pass
 
