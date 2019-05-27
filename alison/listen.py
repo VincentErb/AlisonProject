@@ -7,7 +7,6 @@ import os
 import scipy.io.wavfile as wav
 
 from respeaker import Microphone
-from spectrum import *
 
 LEN_AUDIO = 1  #in seconds
 RATE = 16000
@@ -42,10 +41,11 @@ class MicListener:
                     if not self.learning:
                         self.end_learning_event.set()
                 else:
-                    filename = str(file_id)
-                    save_file(filename, data)
+                    filename = str(self.file_id)
+                    self.save_file(filename, data)
                     rate, signal = wav.read(filename + ".wav")
-                    delete_file(filename)
+                    self.delete_file(filename)
+                    self.file_id += 1
                     
                     self.recognizer_lock.acquire()
                     self.recognizer.process_audio(signal * 1.0)
@@ -98,11 +98,10 @@ class MicListener:
         f.close()
 
         #Call SFT function
-        sft = get_stft_from_file(path)
         #print(sft.shape)
         #print(get_one_fft(sft))
 
-    def delete_file(name):
+    def delete_file(self, name):
         path = os.getcwd() + '/' + name + '.wav'
         #destroy the created file
         if os.path.exists(path):
