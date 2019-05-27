@@ -4,19 +4,21 @@ import wave
 import struct
 import threading
 import os
+import scipy.io.wavfile as wav
 
 from respeaker import Microphone
 from spectrum import *
 
 LEN_AUDIO = 1  #in seconds
 RATE = 16000
-#NUM = 1
+# NUM = 1
 LEN_DATA = int(LEN_AUDIO * RATE * 2)
 
 
 class MicListener:
     learning = False
     learning_recording = None
+    file_id = 0
 
     end_learning_event = threading.Event()
     recognizer_lock = threading.RLock()
@@ -40,8 +42,13 @@ class MicListener:
                     if not self.learning:
                         self.end_learning_event.set()
                 else:
+                    filename = str(file_id)
+                    save_file(filename, data)
+                    rate, signal = wav.read(filename + ".wav")
+                    delete_file(filename)
+                    
                     self.recognizer_lock.acquire()
-                    self.recognizer.process_audio(data)
+                    self.recognizer.process_audio(signal * 1.0)
                     self.recognizer_lock.release()
 
                     if self.learning:
@@ -75,6 +82,8 @@ class MicListener:
         """
         Save the data as a file in the current directory.
         """
+        global RATE
+        
         path = os.getcwd() + '/' + name + '.wav'
 
         #path = '/home/pi/Documents/Respeaker/TestWav/test'+str(i)+'.wav'
@@ -93,14 +102,14 @@ class MicListener:
         #print(sft.shape)
         #print(get_one_fft(sft))
 
+    def delete_file(name):
+        path = os.getcwd() + '/' + name + '.wav'
         #destroy the created file
-        """
         if os.path.exists(path):
             os.remove(path)
         else:
             print("The file does not exist")
-        """
-
+        
 
 if __name__ == '__main__':
     # MicListener(None).run_listening()
