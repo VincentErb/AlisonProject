@@ -22,3 +22,31 @@ To reactivate it you just have to run the following command from the root of the
 ```
 source env/bin/activate
 ```
+
+
+[temp]
+## POUR LA DEMO
+
+La commande à lancer est
+
+python3 -m alison --dict samples/sample.dict
+
+Le Raspi est suuuuuper lent donc c'est possible de run NMF mais ça met qqs minutes. La commande
+ci-dessus le run avec un dictionnaire précalculé, ça permet d'éviter d'attendre 5 minutes à chaque
+fois qu'on veut tester.
+
+Pour run sans dictionnaire
+
+python3 -m alison
+
+Si vous avez une erreur mentionnant un `positive_code`, alors c'est que la version de
+scikit learn est pas à jour. Il faut le mettre à jour vers la version 0.20. Si c'est
+pas possible, alors vous pouvez supprimer le paramètre `positive_code` dans nmf.py. Mais
+ça marche beaucoup moins bien (les résultats ont l'air vraiment random)
+
+Vous pouvez bidouiller le `threshold`  dans recognizer.py pour que ça marche mieux, ça correspond
+aux valeurs qui sont affichées quand un son est reconnu
+
+Pour run les démos qui marchaient
+
+python3 -m alison --dict samples/sample.dict --file <Le fichier que vous voulez tester>
