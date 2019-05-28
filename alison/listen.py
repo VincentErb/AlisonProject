@@ -46,7 +46,7 @@ class MicListener:
                     rate, signal = wav.read(filename + ".wav")
                     self.delete_file(filename)
                     self.file_id += 1
-                    
+
                     self.recognizer_lock.acquire()
                     self.recognizer.process_audio(signal * 1.0)
                     self.recognizer_lock.release()
@@ -83,7 +83,7 @@ class MicListener:
         Save the data as a file in the current directory.
         """
         global RATE
-        
+
         path = os.getcwd() + '/' + name + '.wav'
 
         #path = '/home/pi/Documents/Respeaker/TestWav/test'+str(i)+'.wav'
@@ -108,7 +108,7 @@ class MicListener:
             os.remove(path)
         else:
             print("The file does not exist")
-        
+
 
 if __name__ == '__main__':
     # MicListener(None).run_listening()

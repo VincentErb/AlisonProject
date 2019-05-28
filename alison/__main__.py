@@ -28,13 +28,21 @@ if __name__ == "__main__":
         "--learn",
         help="Name of a file that holds all the learning data",
         type=str)
+    parser.add_argument(
+        "--dict", help="Use a precomputed dictionary.", type=str)
     args = parser.parse_args()
-    
+
     # Sink
     def callback(evt):
-        print("Recognized", evt.tag, "at time", evt.time, "with value", evt.value)
-    
+        print("Recognized", evt.tag, "at time", evt.time, "with value",
+              evt.value)
+
     recognizer = SoundRecognizer(callback=callback)
+
+    # Dict
+    if args.dict != None:
+        logging.info("Loading dictionary %s", args.dict)
+        recognizer.load_dictionary(args.dict)
 
     # Learn
     if args.learn != None:

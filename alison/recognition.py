@@ -36,7 +36,7 @@ class SoundRecognizer:
 
         # == Results
         # events are for example when a sound started to play
-        self.events = []  
+        self.events = []
         self.callback = kwargs["callback"] if "callback" in kwargs else None
 
     def _component_count(self):
@@ -66,6 +66,59 @@ class SoundRecognizer:
         self.tags[tag] = TagInfo(range(range_start, range_stop))
         self._reset_sound_processing()
 
+    def save_dictionary(self, filename):
+        """Save the dictionary to a file.
+        Then the dictionary can be loaded with self.load_dictionary"""
+        file = open(filename, 'w')
+        file.write(str(self.dictionary.shape[0]))
+        file.write(" ")
+        file.write(str(self.dictionary.shape[1]))
+        file.write("\n")
+
+        file.write(str(len(self.tags)))
+        file.write("\n")
+
+        for key, value in self.tags.items():
+            file.write(key.replace(" ", "_"))
+            file.write(" ")
+            file.write(str(value.components_range.start))
+            file.write(" ")
+            file.write(str(value.components_range.stop))
+            file.write("\n")
+
+        for l in range(0, self.dictionary.shape[0]):
+            for c in range(0, self.dictionary.shape[1]):
+                file.write(str(self.dictionary[l, c]))
+                file.write(" ")
+
+            file.write("\n")
+
+        file.close()
+
+    def load_dictionary(self, filename):
+        """Load the dictionary from a file"""
+        file = open(filename, 'r')
+        lines = file.readlines()
+
+        shapestr = lines[0].split(" ")
+        self.dictionary = np.zeros([int(shapestr[0]), int(shapestr[1])])
+
+        tag_count = int(lines[1])
+
+        for i in range(0, tag_count):
+            tag_str = lines[i + 2].split(" ")
+            self.tags[tag_str[0]] = TagInfo(
+                range(int(tag_str[1]), int(tag_str[2])))
+
+        for l in range(0, self.dictionary.shape[0]):
+            linestr = lines[l + 2 + tag_count].split(" ")
+
+            for c in range(0, self.dictionary.shape[1]):
+                self.dictionary[l, c] = float(linestr[c])
+
+        print(self.dictionary.shape)
+        self._reset_sound_processing()
+
     def process_audio(self, audio):
         """Compute spectrum from audio source, and call process_spectrum with
         the result"""
@@ -82,6 +135,9 @@ class SoundRecognizer:
         """Compute NMF and detect events from the results.
         Mean is computed over `horizon` at each sample and the tag is activated if one
         of the components is greater than `threshold`"""
+        if self.dictionary is None:
+            return
+
         activations = nmf.get_activations(spectrum, self.dictionary)
         self.current_nmf_results = np.concatenate(
             (self.current_nmf_results, activations), axis=1)
@@ -107,7 +163,7 @@ class SoundRecognizer:
                             (self.current_position + i) / self.sample_rate,
                             tag, value)
                         self.events.append(event)
-                        
+
                         if self.callback != None:
                             self.callback(event)
 
