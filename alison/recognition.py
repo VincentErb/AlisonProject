@@ -45,7 +45,7 @@ class SoundRecognizer:
     def _reset_sound_processing(self):
         self.current_position = 0
         self.current_audio = np.array([])
-        self.current_nmf_results = np.zeros([self._component_count(), 9])
+        self.current_nmf_results = np.zeros([self._component_count(), 0])
 
         self.events = []
 
@@ -167,4 +167,4 @@ class SoundRecognizer:
                             self.callback(event)
 
         self.current_position += parsed_size
-        self.current_nmf_results = self.current_nmf_results[:, :-self.horizon]
+        self.current_nmf_results = self.current_nmf_results[:, -self.horizon:]
