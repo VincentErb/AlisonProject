@@ -12,15 +12,6 @@ def get_stft_from_file(wav):
 
 
 def get_stft(data):
-    # check data
-    if type(data) != np.ndarray:
-        data = np.array(data)
-
-    # try to detect 2 channel audio
-    if data.ndim == 2:
-        # keep only one channel
-        data = data[0, :].flatten()
-
     # Window size : 1024 -> around 47 ms, rather standard for FFT
     m = np.abs(lib.stft(data, n_fft=1024, window='hann'))
     return m

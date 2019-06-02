@@ -4,7 +4,8 @@ import wave
 import struct
 import threading
 import os
-import scipy.io.wavfile as wav
+
+from . import read_wav_file
 
 from respeaker import Microphone
 
@@ -43,12 +44,12 @@ class MicListener:
                 else:
                     filename = str(self.file_id)
                     self.save_file(filename, data)
-                    rate, signal = wav.read(filename + ".wav")
+                    rate, signal = read_wav_file(filename + ".wav")
                     self.delete_file(filename)
                     self.file_id += 1
 
                     self.recognizer_lock.acquire()
-                    self.recognizer.process_audio(signal * 1.0)
+                    self.recognizer.process_audio(signal)
                     self.recognizer_lock.release()
 
                     if self.learning:

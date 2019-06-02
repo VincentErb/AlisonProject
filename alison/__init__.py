@@ -5,6 +5,28 @@ import json
 mic_listener = None
 
 
+def read_wav_file(filename):
+    """
+    Read a wav file and return a tuple containing the signal and the sample rate.
+    The signal is a one-dimensional numpy array of float containing raw values of
+    the sound. This type of data is directly usable by the SoundRecognizer and other
+    algorithms in Alison. 
+    """
+    rate, data = wav.read(filename)
+
+    if type(data) != np.ndarray:
+        data = np.array(data)
+
+    # try to detect 2 channel audio
+    if data.ndim == 2:
+        # keep only one channel
+        data = data[0, :].flatten()
+
+    # TODO recognize 4 channel audio
+
+    return rate, data * 1.0
+
+
 def learn_from_file(recognizer, filename):
     with open(filename, 'r') as json_file:
         learn_data = json.load(json_file)
@@ -14,12 +36,7 @@ def learn_from_file(recognizer, filename):
 
             # TODO create a method to concatenate audio files
             for file in files:
-                rate, signal = wav.read(file)
-                signal = np.array(signal)
-
-                if signal.ndim == 2:
-                    signal = signal[0, :].flatten()
-
+                rate, signal = read_wav_file(file)
                 audio = np.concatenate((audio, signal))
 
             recognizer.add_dictionary_entry(tag, audio)

@@ -30,9 +30,9 @@ class SoundRecognizer:
 
         # current_audio contains the audio that was recorded but not yet parsed.
         self.current_position = 0
-        self.current_audio = []
+        self.current_audio = np.array([])
         # shape: [n_components, time]
-        self.current_nmf_results = []
+        self.current_nmf_results = np.array([])
 
         # == Results
         # events are for example when a sound started to play
@@ -44,7 +44,7 @@ class SoundRecognizer:
 
     def _reset_sound_processing(self):
         self.current_position = 0
-        self.current_audio = []
+        self.current_audio = np.array([])
         self.current_nmf_results = np.zeros([self._component_count(), 9])
 
         self.events = []
@@ -116,20 +116,19 @@ class SoundRecognizer:
             for c in range(0, self.dictionary.shape[1]):
                 self.dictionary[l, c] = float(linestr[c])
 
-        print(self.dictionary.shape)
         self._reset_sound_processing()
 
     def process_audio(self, audio):
         """Compute spectrum from audio source, and call process_spectrum with
         the result"""
-        self.current_audio.append(audio)
+        self.current_audio = np.concatenate((self.current_audio, audio))
         spectrum = get_stft(self.current_audio)
         self.process_spectrum(spectrum)
 
         # current functions parse the whole audio, so we let nothing in current_audio
         # (parsing the whole data regardless of its size, may result in artifacts
         # in the reconstructed spectrum)
-        self.current_audio.clear()
+        self.current_audio = np.array([])
 
     def process_spectrum(self, spectrum):
         """Compute NMF and detect events from the results.

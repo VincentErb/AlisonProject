@@ -52,8 +52,8 @@ if __name__ == "__main__":
     # Source
     if args.file != None:
         logging.info("Input signal set to file %s", args.file)
-        rate, signal = wav.read(args.file)
-        recognizer.process_audio(signal * 1.0)
+        rate, signal = read_wav_file(args.file)
+        recognizer.process_audio(signal)
     else:
         logging.info("Input signal set to ReSpeaker")
         mic_listener = listen.MicListener(recognizer)
