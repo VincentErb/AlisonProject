@@ -123,7 +123,8 @@ class SoundRecognizer:
         the result"""
         self.current_audio = np.concatenate((self.current_audio, audio))
         spectrum = get_stft(self.current_audio)
-        self.process_spectrum(spectrum)
+        if spectrum.size > 0: 
+            self.process_spectrum(spectrum)
 
         # current functions parse the whole audio, so we let nothing in current_audio
         # (parsing the whole data regardless of its size, may result in artifacts

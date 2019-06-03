@@ -7,6 +7,7 @@ import logging
 import threading
 import subprocess
 import os
+import _thread
 
 from . import listen, mic_listener
 from . import learn_from_file
@@ -53,15 +54,24 @@ if __name__ == "__main__":
               evt.value)
 
         if (evt.tag == 'phone_ring'):
-            proc = subprocess.Popen(
-                ['python3', '/home/pi/4mics_hat/pixels_demo.py'],
-                stdout=open("/home/pi/testzone/output.txt", "ab"))
-            threading.Timer(2, kill_process, [str(proc.pid)]).start()
+            _thread.start_new_thread(lamps.turn_on_alert, (3,1))
+            #thread_light = threading.Thread(target=lamps.turn_on_alert(3,1))
+            #thread_light.start()
+           # proc = subprocess.Popen(
+           #     ['python3', '/home/pi/4mics_hat/pixels_demo.py'],
+           #     stdout=open("/home/pi/testzone/output.txt", "ab"))
+           # threading.Timer(2, kill_process, [str(proc.pid)]).start()
         if (evt.tag == 'sonnette'):
-            proc = subprocess.Popen(
-                ['python3', '/home/pi/4mics_hat/pixels.py'],
-                stdout=open("/home/pi/testzone/output.txt", "ab"))
-            threading.Timer(2, kill_process, [str(proc.pid)]).start()
+            _thread.start_new_thread(lamps.turn_on_alert, (3,2))
+        if (evt.tag == 'fire_alarm'):
+            _thread.start_new_thread(lamps.turn_on_alert, (3,3))
+            #thread_light = threading.Thread(target=lamps.turn_on_alert(3,2))
+            #thread_light.start()
+            #lamps.turn_on_alert(3,2)
+            #proc = subprocess.Popen(
+            #    ['python3', '/home/pi/4mics_hat/pixels.py'],
+            #    stdout=open("/home/pi/testzone/output.txt", "ab"))
+            #threading.Timer(2, kill_process, [str(proc.pid)]).start()
 
     recognizer = SoundRecognizer(callback=callback)
 
