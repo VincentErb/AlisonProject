@@ -47,10 +47,13 @@ class MicListener:
                     self.delete_file(filename)
                     self.file_id += 1
 
+                    ##try:  
                     self.recognizer_lock.acquire()
                     self.recognizer.process_audio(signal * 1.0)
                     self.recognizer_lock.release()
-
+                    ##except:
+                    ##    print("self.recognizer.process_audio EXCEPTION OCCURED in file listen.py line 55")
+                    ##    pass
                     if self.learning:
                         self.end_learning_event.clear()
 

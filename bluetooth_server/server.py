@@ -31,10 +31,12 @@ while True:
         while True:
             msg = client_sock.recv(1024)
             if len(msg) == 0: break
+            msg = msg.decode("utf8")
             #Do actions depending on received message
-            
             if(msg == "start"):
                 # Tell respeaker thread to start listening sound
+                print(type(mic_listener))
+                print(mic_listener)
                 mic_listener.start_learning()
 
                 #if all done right
@@ -45,7 +47,7 @@ while True:
                 current_audio = mic_listener.stop_learning()
                 
                 client_sock.send("done.")
-            elif(msg.startswith("save")):
+            elif(msg.startswith('save')):
                 tag = msg.split(" | ")[1]
                 color = msg.split(" | ")[2]
 

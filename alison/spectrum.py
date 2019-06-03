@@ -16,13 +16,23 @@ def get_stft(data):
     if type(data) != np.ndarray:
         data = np.array(data)
 
+#    print("\ndata.ndim = " , data.ndim, "\t ", data, "\n")
     # try to detect 2 channel audio
     if data.ndim == 2:
         # keep only one channel
+        #print("data ndim = [2]\n")
         data = data[0, :].flatten()
 
+#    print("\ndata.ndim = " , data.ndim, "\t ", data, "\n")
+    #if data == None or data == [] or data == np.ndarray(0) :
+    #    print("\nwrong data format ", data, "\n")
+    #    return None
     # Window size : 1024 -> around 47 ms, rather standard for FFT
-    m = np.abs(lib.stft(data, n_fft=1024, window='hann'))
+    m = np.array([])
+    if(data.size > 0):
+        m = np.abs(lib.stft(data, n_fft=1024, window='hann'))
+#    else:
+#       print("\n\n returned NONE \n\n")
     return m
 
 

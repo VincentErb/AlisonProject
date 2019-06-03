@@ -123,8 +123,11 @@ class SoundRecognizer:
         """Compute spectrum from audio source, and call process_spectrum with
         the result"""
         self.current_audio.append(audio)
+        #print("\ncurrent audio value ===> ", self.current_audio, " <===\n")
         spectrum = get_stft(self.current_audio)
-        self.process_spectrum(spectrum)
+        #print("spectrum type = ", type(spectrum) , "\n")
+        if(spectrum.size > 0):
+            self.process_spectrum(spectrum)
 
         # current functions parse the whole audio, so we let nothing in current_audio
         # (parsing the whole data regardless of its size, may result in artifacts
