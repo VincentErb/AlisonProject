@@ -13,8 +13,8 @@ def get_stft_from_file(wav):
 
 def get_stft(data):
     # Window size : 1024 -> around 47 ms, rather standard for FFT
-    m = np.abs(lib.stft(data, n_fft=1024, window='hann'))
-    return m
+    return np.abs(lib.stft(data, n_fft=1024,
+                           window='hann')) if data.size > 0 else np.array([])
 
 
 # Extracts one column of the STFT matrix
