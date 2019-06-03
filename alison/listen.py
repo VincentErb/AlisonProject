@@ -3,6 +3,7 @@ import os
 import wave
 import struct
 import threading
+import _thread
 import os
 
 from . import read_wav_file
@@ -42,15 +43,7 @@ class MicListener:
                     if not self.learning:
                         self.end_learning_event.set()
                 else:
-                    filename = str(self.file_id)
-                    self.save_file(filename, data)
-                    rate, signal = read_wav_file(filename + ".wav")
-                    self.delete_file(filename)
-                    self.file_id += 1
-
-                    self.recognizer_lock.acquire()
-                    self.recognizer.process_audio(signal)
-                    self.recognizer_lock.release()
+                    _thread.start_new_thread(self.process_audio, (data))
 
                     if self.learning:
                         self.end_learning_event.clear()
@@ -58,21 +51,40 @@ class MicListener:
         except KeyboardInterrupt:
             print("Quit")
 
+    def convert_audio(self, data):
+        """
+        Convert respeaker data to audio 
+        """
+        filename = str(self.file_id)
+        self.save_file(filename, data)
+        rate, signal = read_wav_file(filename + ".wav")
+        self.delete_file(filename)
+        self.file_id += 1
+        return rate, signal
+
+    def process_audio(self, data):
+        rate, signal = self.convert_audio(data)
+
+        self.recognizer_lock.acquire()
+        self.recognizer.process_audio(signal)
+        self.recognizer_lock.release()
+
     def start_learning(self):
         """
         Start recording a sound for learning purpose. 
         """
-        self.learning_recording = None
+        self.learning_recording = b''
         self.learning = True
 
     def stop_learning(self):
         """
-        Stop recording a sound for learning purpose and returns the recorded
+        Stop recording a sound for learning purpose and return the recorded
         sample.
         """
         self.learning = False
         self.end_learning_event.wait()
-        return self.learning_recording
+        rate, audio = self.convert_audio(self.learning_recording)
+        return audio
 
     def register_sound(self, name, audio):
         self.recognizer_lock.acquire()
