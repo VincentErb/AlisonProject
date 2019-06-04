@@ -45,6 +45,17 @@
     color:#48484b;
  }
 
+ .sectitle-white{
+    font-size:2.75rem;
+    font-family:Roboto,Arial;
+    font-weight: 600;
+    color:#ffffff;
+ }
+
+ .white{
+    color:#ffffff;
+ }
+
  .bg-lightgray{
      background-color:#EFEFEF;
  }
@@ -66,13 +77,25 @@
     padding-bottom: 0.3rem;
     border-bottom: 3px solid #3f51b5;
  }
+
+ .bordervideo-white{
+    padding-top: 1.25rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 3px solid #ffffff;
+ }
+ 
  .tblack{
     float: right;
  }
 
- .bgdarkblue{
-     background-color: #1a191f;
+ .bgdarkblue2{
+     background-color: #20233d !important;
  }
+
+ .bgdarkerblue{
+    background-color: #17192c !important;
+}
+
  .padding5{
      padding-top:3rem;
      padding-bottom:3rem;
