@@ -43,7 +43,7 @@ class MicListener:
                     if not self.learning:
                         self.end_learning_event.set()
                 else:
-                    _thread.start_new_thread(self.process_audio, data)
+                    _thread.start_new_thread(self.process_audio, (data,))
 
                     if self.learning:
                         self.end_learning_event.clear()
